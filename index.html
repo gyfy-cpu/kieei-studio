@@ -116,6 +116,9 @@ nav .links a:hover{color:var(--ink)}
 
 /* ============ 亮点 ============ */
 .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+.group-t{font-size:17px; font-weight:800; margin:28px 0 14px}
+.group-t:first-of-type{margin-top:0}
+.group-t small{color:var(--muted); font-weight:600; font-size:12px; margin-left:10px}
 .card{
   background:var(--panel); border:1px solid var(--rule);
   border-radius:var(--radius); padding:26px 22px;
@@ -233,7 +236,8 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
     </div>
     <div class="links">
       <a href="#features">产品亮点</a>
-      <a href="#shots">界面实拍</a>
+      <a href="#speed">速度与画质</a>
+      <a href="#all">功能一览</a>
       <a href="#guide">安装教程</a>
       <a href="#faq">常见问题</a>
       <a class="nav-cta" href="#download">下载</a>
@@ -251,6 +255,8 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
       <div class="badges">
         <span>🖥 全本地推理 · 零积分零订阅</span>
         <span>⚡ 8GB 显存起步</span>
+        <span>🚀 GPU 提速 · 换脸实测 6 倍</span>
+        <span>💎 GFPGAN 画质增强</span>
         <span>💬 对话式创作</span>
         <span>🎛 参考图锁人物</span>
       </div>
@@ -270,7 +276,7 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
 <div class="stats">
   <div class="wrap">
     <div class="stat"><b>5</b><span>内置引擎（视频×4 + 生图）</span></div>
-    <div class="stat"><b>1~30s</b><span>原生连续视频时长</span></div>
+    <div class="stat"><b>6×</b><span>换脸 GPU 实测提速（90 帧 11.7s）</span></div>
     <div class="stat"><b>8GB</b><span>显存即可跑（8G 保命档）</span></div>
     <div class="stat"><b>0 元</b><span>无积分 · 无订阅 · 无联网</span></div>
   </div>
@@ -306,6 +312,79 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
   </div>
 </section>
 
+<!-- ================= 速度与画质 ================= -->
+<section id="speed">
+  <div class="wrap">
+    <h2>更快，画质一点不砍</h2>
+    <p class="sub">这一轮更新的核心：<mark class="key">速度全链路提速，观感原地不动</mark>。以下均为本机实测数据，不是营销话术。</p>
+    <h3 class="group-t">提速，来自工程层 <small>不动模型本体</small></h3>
+    <div class="grid4">
+      <div class="card">
+        <div class="ic">⚡</div>
+        <h3>换脸 GPU 直通</h3>
+        <p>90 帧视频实测 11.7 秒——上一版走 CPU 通道是 69.6 秒，快约 6 倍（0.13 秒/帧）。</p>
+      </div>
+      <div class="card">
+        <div class="ic">♻</div>
+        <h3>模型常驻显存</h3>
+        <p>推理进程长驻，40G 权重只加载一次。连续出片免重载，第 2 条起每条省 1~2 分钟。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧠</div>
+        <h3>提示词编码缓存</h3>
+        <p>相同提示词（+首帧图）自动命中缓存，跳过大模型文本编码，每条再省 20~30 秒。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🚀</div>
+        <h3>8 步 Turbo 双段采样</h3>
+        <p>官方蒸馏加速件：8 步粗生成 + 3 步精修，告别传统 30 步级采样等待。</p>
+      </div>
+    </div>
+    <h3 class="group-t">画质保障 <small>提速不走画质的后门</small></h3>
+    <div class="grid4">
+      <div class="card">
+        <div class="ic">🎞</div>
+        <h3>720P 原生默认</h3>
+        <p>新版默认高清分辨率档；8G 显存机器自动进保命档，宁可慢也不压画质。</p>
+      </div>
+      <div class="card">
+        <div class="ic">💎</div>
+        <h3>GFPGAN 画质增强</h3>
+        <p>换脸后按脸修复五官与皮肤纹理（512 高清对齐贴回，边缘羽化无痕），可选开关。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔊</div>
+        <h3>音轨零损失</h3>
+        <p>换脸直通保留原声；H3 音画同源联合生成——不套配音层，声音与口型天然同步。</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧩</div>
+        <h3>官方量化格式</h3>
+        <p>fp8 / int8 权重只降显存占用，不改模型本体；加速从来不靠压画质。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 功能一览 ================= -->
+<section id="all">
+  <div class="wrap">
+    <h2>功能齐全：一条龙工作流</h2>
+    <p class="sub">从出图、生视频到换脸修饰，<mark class="key">全流程不离开这台电脑</mark>。</p>
+    <div class="table-wrap">
+      <table>
+        <tr><th>模块</th><th>能做什么</th></tr>
+        <tr><td><b>生图 · Z-Image-Turbo</b></td><td>中文原生、照片级真人，8 步 10 秒级出图——人物参考图 / 首帧锚定一步到位。</td></tr>
+        <tr><td><b>说话人视频 · InfiniteTalk</b></td><td>参考音频驱动口型，音画同步；720P / 480P 双档自适应显存。</td></tr>
+        <tr><td><b>全模态视频 · MiniMax H3</b></td><td>文字/图片直接生成<b>带声音</b>的完整视频（1~30s），音画原生联合生成。</td></tr>
+        <tr><td><b>视频换脸 · Inswapper + GFPGAN</b></td><td>单脸/全脸可选，保留原音轨，GPU 直通 + 画质增强。</td></tr>
+        <tr><td><b>提示词助手</b></td><td>风格/镜头/氛围/时段标签一键拼装；台词结构化直喂 H3，小白也能写出专业提示词。</td></tr>
+        <tr><td><b>权重管家</b></td><td>缺哪个模型补哪个包：一键下载清单 + 断点续传，换机不重复下载整套。</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ================= 界面实拍 ================= -->
 <section id="shots">
   <div class="wrap">
@@ -334,9 +413,10 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
       <div class="dl-card hero-card">
         <div class="ribbon">推荐 · 一包全含</div>
         <h3>完整版（软件 + 全部模型）</h3>
-        <div class="dl-size">约 41 GB · v1.0 · Windows 10/11 x64 · 2026-11-18 更新</div>
+        <div class="dl-size">约 41 GB · v1.1 · Windows 10/11 x64 · 2026-11-21 更新</div>
         <ul>
           <li>软件环境 + 内置 Python，解压即用，无需装任何依赖</li>
+          <li>GPU 全链路提速 + 模型常驻显存（连续出片免重载）</li>
           <li>含基础模型包（生图 / LTX / 混元 Avatar 等）</li>
           <li>开机动画 + 看板娘 + 全部内置功能</li>
           <li>适合：第一次安装 / 换新机，下这一包就够了</li>
@@ -416,10 +496,11 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
       <table>
         <tr><th>档位</th><th>显存</th><th>内存</th><th>运行策略</th><th>体验</th></tr>
         <tr><td><span class="lv">8G 保命档</span></td><td>≥ 8GB（RTX 3060 级）</td><td>16GB</td><td>层级换页 + 量化权重</td><td>能跑，偏慢，绝不爆显存</td></tr>
-        <tr><td><span class="lv">12G 均衡档</span></td><td>≥ 12GB（RTX 3060 12G / 4070）</td><td>16GB+</td><td>组件级换页</td><td>速度与稳定平衡</td></tr>
-        <tr><td><span class="lv">16G 全速档</span></td><td>≥ 16GB（RTX 4060Ti 16G / 4080）</td><td>24GB+</td><td>全显存直跑</td><td>全速生成</td></tr>
+        <tr><td><span class="lv">12G 均衡档</span></td><td>≥ 12GB（RTX 3060 12G / 4070）</td><td>32GB+</td><td>组件级换页</td><td>速度与稳定平衡</td></tr>
+        <tr><td><span class="lv">16G 全速档</span></td><td>≥ 14GB（RTX 4060Ti 16G / 4080）</td><td>32GB+</td><td>全显存直跑</td><td>全速生成</td></tr>
       </table>
     </div>
+    <p class="note" style="margin-top:16px">💡 关键提示：内存 32GB 是速度分水岭——16GB 内存会触发保命档强制层级换页（速度差 3~5 倍）；内存加到 32GB 立即解锁全速档，画质设置不用改。另：换脸等 GPU 模块首次运行会做一次内核预热，属正常现象，之后全速。</p>
   </div>
 </section>
 
@@ -439,6 +520,10 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
     <details>
       <summary>8GB 显存真的能跑视频生成吗？</summary>
       <div class="a">能。软件内置显存看护（VRAMGuard），8G 档自动走层级换页 + 量化权重策略：慢一点，但不会爆显存蓝屏。12G/16G 档自动提速。</div>
+    </details>
+    <details>
+      <summary>提速会不会牺牲画质？</summary>
+      <div class="a">不会。提速全部来自工程层：GPU 直通换脸、模型常驻显存、提示词编码缓存、官方 8 步蒸馏加速件——没有任何一项动分辨率或模型本体。画质端反而是升级的：720P 原生默认 + GFPGAN 换脸增强 + 音轨直通保留原声。</div>
     </details>
     <details>
       <summary>AMD 显卡 / 核显能用吗？</summary>
