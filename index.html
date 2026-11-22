@@ -224,6 +224,35 @@ footer{border-top:1px solid var(--rule); padding:40px 0 48px; text-align:center}
 footer .f-logo{display:flex; align-items:center; justify-content:center; gap:9px; font-weight:800; margin-bottom:10px}
 footer .f-logo img{width:26px; height:26px; border-radius:7px}
 footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
+
+/* ============ 下载管家 ============ */
+.mgr{margin-top:18px}
+.mgr-toggle{
+  width:100%; cursor:pointer; text-align:left;
+  background:linear-gradient(160deg, rgba(38,96,245,.14), rgba(38,96,245,.05) 55%, var(--panel));
+  border:1px solid rgba(38,96,245,.45); border-radius:18px;
+  padding:16px 22px; display:flex; flex-direction:column; gap:4px;
+  color:var(--ink); font-family:inherit; transition:border-color .2s;
+}
+.mgr-toggle span{font-size:15.5px; font-weight:800}
+.mgr-toggle small{color:var(--muted); font-size:12.5px}
+.mgr-toggle:hover{border-color:var(--accent2)}
+.mgr-body{margin-top:12px; background:var(--panel); border:1px solid var(--rule); border-radius:18px; padding:18px 20px}
+.mgr-rows{display:flex; flex-direction:column; gap:10px}
+.mgr-row{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  background:rgba(255,255,255,.04); border:1px solid var(--rule);
+  border-radius:14px; padding:12px 16px;
+}
+.mgr-row b{font-size:13.5px}
+.mgr-row .sz{color:var(--muted); font-size:12.5px}
+.mgr-row .sp{flex:1}
+.mgr-actions{margin-top:14px; display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.mgr-hint{color:var(--faint); font-size:12px}
+.mgr-steps{margin-top:14px; border-top:1px solid var(--rule); padding-top:14px}
+.mgr-steps b{color:var(--accent2); font-size:13px}
+.mgr-steps p{color:var(--muted); font-size:13px; line-height:1.9; margin-top:6px}
+.btn:disabled{opacity:.45; cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -470,6 +499,28 @@ footer p{color:var(--faint); font-size:12.5px; line-height:1.9}
       </div>
 
     </div>
+
+    <!-- 下载管家 -->
+    <div class="mgr">
+      <button class="mgr-toggle" onclick="toggleMgr()">
+        <span>📦 下载管家</span>
+        <small>集中管理全部下载 · 复制提取码 · 打开网盘 · 安装顺序引导</small>
+      </button>
+      <div class="mgr-body" id="mgrBody" hidden>
+        <div class="mgr-rows" id="mgrRows"></div>
+        <div class="mgr-actions">
+          <button class="btn btn-ghost" onclick="copyAllInfo()">📋 复制全部下载信息</button>
+          <span class="mgr-hint">清单连同链接提取码一起复制，发给朋友或自己存档。</span>
+        </div>
+        <div class="mgr-steps">
+          <b>推荐路线</b>
+          <p>① 第一次安装：直接下「完整版」（41GB 一包全含），解压即用。<br>
+             ② 流量紧张：先下「软件环境包」（8.7GB）跑起来看界面，再按需下「基础模型补充包」和「H3 全模态包」。<br>
+             ③ 全部解压到同一目录（非 C 盘），双击「一键配置.bat」自动扫描装配，菜单 [4] 启动软件。<br>
+             ④ 缺哪个模型随时回「一键配置.bat」菜单 [3] 补模型，断点续传分档下载。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -576,6 +627,72 @@ function dl(key){
     alert("「" + (item ? item.name : key) + "」网盘分享链接待发布，敬请期待。");
   }
 }
+
+/* ============ 下载管家 ============ */
+var MGR_KEYS = ["full", "env", "models", "h3"];
+var MGR_SIZES = { full:"约 41 GB", env:"约 8.7 GB", models:"约 35.1 GB", h3:"约 22.9 GB" };
+
+function toggleMgr(){
+  var body = document.getElementById("mgrBody");
+  if (body.hidden){ buildMgrRows(); body.hidden = false; }
+  else body.hidden = true;
+}
+
+function buildMgrRows(){
+  var box = document.getElementById("mgrRows");
+  if (box.children.length) return;
+  for (var i = 0; i < MGR_KEYS.length; i++){
+    var k = MGR_KEYS[i], it = LINKS[k];
+    if (!it) continue;
+    var ready = !!(it.url && it.code);
+    var row = document.createElement("div");
+    row.className = "mgr-row";
+    row.innerHTML =
+      "<b>" + it.name + "</b>" +
+      "<span class='sz'>" + (MGR_SIZES[k] || "") + "</span>" +
+      "<span class='sp'></span>" +
+      "<span class='code-chip'>提取码：" + (ready ? it.code : "待发布") + "</span>" +
+      "<button class='btn " + (ready ? "btn-primary' onclick=\"dl('" + k + "')\"" : "btn-ghost' disabled") +
+      ">" + (ready ? "⬇ 打开网盘" : "链接待发布") + "</button>";
+    box.appendChild(row);
+  }
+}
+
+function copyAllInfo(){
+  var lines = [];
+  for (var i = 0; i < MGR_KEYS.length; i++){
+    var k = MGR_KEYS[i], it = LINKS[k];
+    if (!it) continue;
+    var ready = !!(it.url && it.code);
+    lines.push(it.name + "（" + (MGR_SIZES[k] || "") + "）："
+      + (ready ? it.url : "链接待发布") + "  提取码：" + (ready ? it.code : "-"));
+  }
+  var text = "绮映 KiEi · AI视频工厂 下载清单\n" + lines.join("\n");
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      alert("已复制全部下载信息，可直接粘贴给朋友。");
+    }, function(){ fallbackCopy(text); });
+  } else fallbackCopy(text);
+}
+
+function fallbackCopy(text){
+  var ta = document.createElement("textarea");
+  ta.value = text; document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); alert("已复制全部下载信息。"); } catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ?mgr=1 直达展开（分享/验证用） */
+try {
+  if (new URLSearchParams(location.search).get("mgr") === "1"){
+    toggleMgr();
+    setTimeout(function(){
+      var el = document.getElementById("download");
+      if (el) el.scrollIntoView();
+    }, 300);
+  }
+} catch(e){}
 </script>
 </body>
 </html>
